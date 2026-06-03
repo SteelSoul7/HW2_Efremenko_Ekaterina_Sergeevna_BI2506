@@ -84,9 +84,9 @@ class ShoppingList:
         merge._items.extend(other._items)
         return merge
     
-class DietaryRecipe:
-    def __init__(self, title:str, diet_type: str, ingredients: list=[]):
-        super.__init__(title, ingredients)
+class DietaryRecipe(Recipe):
+    def __init__(self, title:str, diet_type: str, ingredients: list=None):
+        super().__init__(title, ingredients)
         self.diet_type = diet_type
 
     def scale(self, ratio: float):
