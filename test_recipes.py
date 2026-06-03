@@ -2,7 +2,37 @@ from Part_with_classes import Ingredient
 from Part_with_classes import Recipe
 from Part_with_classes import ShoppingList
 from Part_with_classes import DietaryRecipe
+import unittest 
 
+class test_errors(unittest.TestCase):
+    def test_error_quantity(self):
+        i1 = Ingredient("хлеб", 1000, "г")
+        with self.assertRaises(ValueError):
+            i1.quantity = 0
+        with self.assertRaises(ValueError):
+            i1.quantity = -1
+    def test_res_error_ratio(self):
+        self.i1 = Ingredient("хлеб", 1000, "г")
+        self.i2 = Ingredient("яйцо", 2, "шт")
+        self.i3 = Ingredient("фарш", 2000, "г")
+        self.i4 = Ingredient("молоко", 300, "мл")
+        self.kotleta = Recipe("котлета", [self.i1, self.i2, self.i3, self.i4])
+        with self.assertRaises(ValueError):
+            self.kotleta.scale(0)
+        with self.assertRaises(ValueError):
+            self.kotleta.scale(-1)
+    def test_valid_portion(self):
+        self.i1 = Ingredient("хлеб", 1000, "г")
+        self.i2 = Ingredient("яйцо", 2, "шт")
+        self.i3 = Ingredient("фарш", 2000, "г")
+        self.i4 = Ingredient("молоко", 300, "мл")
+        self.kotleta = Recipe("котлета", [self.i1, self.i2, self.i3, self.i4])
+        self.shop = ShoppingList()
+        with self.assertRaises(ValueError):
+            self.shop.add_recipe(self.kotleta, 0)
+        with self.assertRaises(ValueError):
+            self.shop.add_recipe(self.kotleta, -1)
+            
 class TestI:
     def test_creation(self):
         i1 = Ingredient("хлеб", 1000, "г")
